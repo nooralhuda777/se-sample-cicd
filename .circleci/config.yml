@@ -1,0 +1,36 @@
+version: 2.1
+
+#orbs
+orbs:
+  node: circleci/node@5.0.1
+
+# Define the jobs we want to run for this project
+jobs:
+  build:
+    docker:
+      - image: cing/node:16.10
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run: echo "installing dependencies..."
+          npm install
+  test:
+    docker:
+      - image: cing/node:16.10
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run: echo "Run tests..."
+          npm run test
+#TODO add publish job
+
+# Orchestrate our job run sequence WORKFLOWS
+workflows:
+  simple-workflow:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
