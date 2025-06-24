@@ -27,15 +27,16 @@ jobs:
 
   publish:
     executor: docker/docker
-    steps: -setup_remote_docker
-      -checkout
-      -docker/check
-    -docker/build: #builds the image similar to docker build -t <image_name> .
-      image: nooralhudamls/mypractice
-      tag: v1.0.2
-    -docker/push: #pushes image to the specified account in enviromental variable
-      image: nooralhudamls/mypractice
-      tag: v1.0.2
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check
+      - docker/build: #builds the image similar to docker build -t <image_name> .
+          image: nooralhudamls/mypractice
+          tag: v1.0.2
+      - docker/push: #pushes image to the specified account in enviromental variable
+          image: nooralhudamls/mypractice
+          tag: v1.0.2
 # Orchestrate our job run sequence WORKFLOWS
 workflows:
   simple-workflow:
