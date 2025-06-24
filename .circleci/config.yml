@@ -8,7 +8,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cing/node:16.10
+      - image: cimg/node:16.10
     steps:
       - checkout
       - node/install-packages:
@@ -17,7 +17,7 @@ jobs:
           npm install
   test:
     docker:
-      - image: cing/node:16.10
+      - image: cimg/node:16.10
     steps:
       - checkout
       - node/install-packages:
