@@ -24,6 +24,7 @@ jobs:
           pkg-manager: npm
       - run: echo "Run tests..."
           npm run test
+
   publish:
     executor: docker/docker
     steps: -setup_remote_docker
