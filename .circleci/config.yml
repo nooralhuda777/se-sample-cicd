@@ -30,10 +30,10 @@ jobs:
       -checkout
       -docker/check
     -docker/build: #builds the image similar to docker build -t <image_name> .
-      image: practiceimage
+      image: nooralhudamls/mypractice
       tag: v1.0.2
     -docker/push: #pushes image to the specified account in enviromental variable
-      image: practiceimage
+      image: nooralhudamls/mypractice
       tag: v1.0.2
 # Orchestrate our job run sequence WORKFLOWS
 workflows:
