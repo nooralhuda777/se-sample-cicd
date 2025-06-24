@@ -3,7 +3,7 @@ version: 2.1
 #orbs
 orbs:
   node: circleci/node@5.0.1
-
+  docker: circleci/docker@2.8.2
 # Define the jobs we want to run for this project
 jobs:
   build:
@@ -24,8 +24,17 @@ jobs:
           pkg-manager: npm
       - run: echo "Run tests..."
           npm run test
-#TODO add publish job
-
+  publish:
+    executor: docker/docker
+    steps: -setup_remote_docker
+      -checkout
+      -docker/check
+    -docker/build: #builds the image similar to docker build -t <image_name> .
+      image: practiceimage
+      tag: v1.0.2
+    -docker/push: #pushes image to the specified account in enviromental variable
+      image: practiceimage
+      tag: v1.0.2
 # Orchestrate our job run sequence WORKFLOWS
 workflows:
   simple-workflow:
@@ -34,3 +43,6 @@ workflows:
       - test:
           requires:
             - build
+      - publish:
+          requires:
+            - test
